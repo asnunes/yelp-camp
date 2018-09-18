@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Campgrounds</title>
-    </head>
-    <body>
-        <h1>Here you can see all Campgrounds available</h1>
-        <div>
-            <% campgrounds.forEach(function(campground){ %>
-            <h4><%= campground.name %></h4>
-            <img src="<%= campground.image %>" alt="testing this out">
-            <%});%>
-        </div>
-    </body>
-</html>
+<% include partials/header %>
+    
+    <h1>Here you can see all Campgrounds available</h1>
+    <div>
+        <% campgrounds.forEach(function(campground){ %>
+        <h4><%= campground.name %></h4>
+        <img src="<%= campground.image %>" alt="testing this out">
+        <%});%>
+    </div>
+
+<% include partials/footer %>
