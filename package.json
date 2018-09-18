@@ -1,0 +1,30 @@
+{
+  "name": "yelpcamp",
+  "version": "1.0.0",
+  "description": "A complete website example",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maleskena/yelp-camp.git"
+  },
+  "keywords": [
+    "yelp-camp",
+    "express",
+    "ejs",
+    "js",
+    "node"
+  ],
+  "author": "Alexandre Nunes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maleskena/yelp-camp/issues"
+  },
+  "homepage": "https://github.com/maleskena/yelp-camp#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  }
+}
