@@ -2,7 +2,7 @@
 
 A complete website example using:
 
-- Bootstrap
+- Bootstrap 4
 - Node.js
 - Express
 - Ejs
