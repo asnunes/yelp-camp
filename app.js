@@ -1,46 +1,20 @@
-var express = require("express");
-var app = express();
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+var express    = require("express"),
+    bodyParser = require('body-parser'),
+    mongoose   = require('mongoose'),
+    Campground = require('./models/campgrounds');
+    seedDB     = require("./seed")
+    app        = express();
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs"); //to avoid .ejs at the end of the file
 
-//campground schema
-var campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
-
-//model from schema
-var Campground = mongoose.model("Campground", campgroundSchema);
-
-//create defaults campgrounds - doesn't work anymore
-// var campground = {name: "Salmon Creek", 
-                // image:"https://farm7.staticflickr.com/6139/6016438964_f6b8e1fee2.jpg",
-                // description: "Nice place with flowers and stuff"};
-// var campground2 = {name: "Granite Hill", image:"https://farm4.staticflickr.com/3144/2984126071_c462b62623.jpg"};
-// Campground.create(campground, newCampgroundCreated);
-
-//requests
-// var campgrounds = [
-//     {name: "Salmon Creek", image:"https://farm7.staticflickr.com/6139/6016438964_f6b8e1fee2.jpg"},
-//     {name: "Granite Hill", image:"https://farm4.staticflickr.com/3144/2984126071_c462b62623.jpg"},
-//     {name: "Montain's Rest", image:"https://farm3.staticflickr.com/2582/3820664827_6c2e9a69ae.jpg"},
-//     {name: "Salmon Creek", image:"https://farm7.staticflickr.com/6139/6016438964_f6b8e1fee2.jpg"},
-//     {name: "Granite Hill", image:"https://farm4.staticflickr.com/3144/2984126071_c462b62623.jpg"},
-//     {name: "Montain's Rest", image:"https://farm3.staticflickr.com/2582/3820664827_6c2e9a69ae.jpg"},
-//     {name: "Salmon Creek", image:"https://farm7.staticflickr.com/6139/6016438964_f6b8e1fee2.jpg"},
-//     {name: "Granite Hill", image:"https://farm4.staticflickr.com/3144/2984126071_c462b62623.jpg"},
-//     {name: "Montain's Rest", image:"https://farm3.staticflickr.com/2582/3820664827_6c2e9a69ae.jpg"}
-// ];
+seedDB();
 
 app.get("/", function(req, res){
     res.render("landing");
 });
-
+    
 app.get("/campgrounds", function(req, res){
     //retrive campground from database
     Campground.find({}, function(err, campgrounds){
@@ -57,8 +31,13 @@ app.get("/campgrounds/new", function(req, res){
 });
 
 app.get("/campgrounds/:id", function(req, res){
-    Campground.findById(req.params.id, function(err, foundCampground){
-        res.render("show", {campground: foundCampground});
+    //gets comments from id and attach it to foundCampground
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
+        if (err){
+            console.log(err);
+        } else {
+            res.render("show", {campground: foundCampground});
+        }
     });
 });
 
