@@ -25,8 +25,13 @@
                     <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user"></i> Login</a></li>
+                    <% if(!currentUser){ %>
+                    <li class="nav-item"><a href="/register" class="nav-link"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                    <li class="nav-item"><a href="/login" class="nav-link"><i class="fas fa-user"></i> Login</a></li>
+                    <%} else{ %>
+                        <li class="navbar-text" id="welcome-message"> Welcome, <%= currentUser.username %>  </li>
+                        <li class="nav-item"><a href="/logout" class="nav-link"><i class="far fa-user"></i> Logout</a></li>
+                    <% } %>
                 </ul>
             </div>
             </div>
