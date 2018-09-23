@@ -13,3 +13,7 @@
 .img-thumbnail .caption{
     padding: 9px;
 }
+
+#delete-form, #edit-button{
+    margin: 0 0 0 9px;
+}

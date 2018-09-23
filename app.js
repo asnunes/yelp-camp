@@ -1,13 +1,14 @@
-var express       = require("express"),
-    bodyParser    = require('body-parser'),
-    mongoose      = require('mongoose'),
-    passport      = require('passport'),
-    LocalStrategy = require('passport-local'),
-    Campground    = require('./models/campgrounds'),
-    Comment       = require("./models/comment"),
-    User          = require('./models/user'),
-    seedDB        = require("./seed"),
-    app           = express();
+var express        = require("express"),
+    bodyParser     = require('body-parser'),
+    mongoose       = require('mongoose'),
+    passport       = require('passport'),
+    LocalStrategy  = require('passport-local'),
+    methodOverride = require('method-override');
+    Campground     = require('./models/campgrounds'),
+    Comment        = require("./models/comment"),
+    User           = require('./models/user'),
+    seedDB         = require("./seed"),
+    app            = express();
 
 //routes
 var indexRoutes      = require("./routes/index"),
@@ -15,9 +16,12 @@ var indexRoutes      = require("./routes/index"),
     commentRoutes    = require("./routes/comments");
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true});
+mongoose.set('useFindAndModify', false);
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs"); //to avoid .ejs at the end of the file
-app.use(express.static(__dirname + "/public"))
+app.use(express.static(__dirname + "/public"));
+app.use(methodOverride('_method'));
 
 //seedDB();
 
@@ -48,6 +52,6 @@ function userInfo(req, res, next){
 }
 
 //starts server
-app.listen("3000", function(){
-        console.log("YelpCamp served stated at port 3000");
+app.listen("3001", function(){
+        console.log("YelpCamp served stated at port 3001");
     });
