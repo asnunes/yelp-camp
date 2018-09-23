@@ -38,6 +38,10 @@ function createNewComment(campground){
         if(err){
             console.log(err);
         } else {
+            // comment.author.id = 'testid'
+            comment.author.username = 'Admin';
+            comment.save();
+
             campground.comments.push(comment);
             campground.save();
             console.log("A comment has been created");
@@ -61,7 +65,7 @@ function campgroundsRemovedCallBack(err){
         console.log(err);
     } else {
         console.log("All campgrounds have been removed");
-        createNewCampgrounds();
+        //createNewCampgrounds();
     }
 };
 

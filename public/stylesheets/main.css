@@ -1,6 +1,6 @@
 #welcome-message{
-    color: #34495e;
-
+    margin: auto 5px;
+    color: rgba(0, 0, 0, 0.9);
 }
 .img-thumbnail{
     padding: 0;

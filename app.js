@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs"); //to avoid .ejs at the end of the file
 app.use(express.static(__dirname + "/public"))
 
-seedDB();
+//seedDB();
 
 //passport configuration
 app.use(require("express-session")({
