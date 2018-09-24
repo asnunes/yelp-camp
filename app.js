@@ -25,7 +25,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
 app.use(flash());
 
-//seedDB();
+// seedDB(); uncomment this to reemove all campgrounds or change database
 
 //passport configuration
 app.use(require("express-session")({

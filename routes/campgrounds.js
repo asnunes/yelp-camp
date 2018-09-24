@@ -52,10 +52,11 @@ router.delete('/:id',  middleware.checkCampgroundOwnership, function(req, res){
 
 router.post("/", middleware.isLoggedIn,function(req, res){
     var name = req.body.name;
+    var price = req.body.price;
     var image = req.body.image;
     var description = req.body.description;
     var author = {id: req.user._id, username: req.user.username};
-    var campground = {name: name, image: image, description: description, author: author};
+    var campground = {name: name, price: price, image: image, description: description, author: author};
 
     Campground.create(campground, function(err, campground){
         newCampgroundCreated(err, campground, res);
@@ -67,9 +68,7 @@ function newCampgroundCreated(err, campground, res){
     if(err){
         console.log(err);
     } else{
-        console.log("A new campground has been created");
-        console.log(campground);
-        res.redirect("/");
+        res.redirect("/campgrounds");
     }
 }
 
