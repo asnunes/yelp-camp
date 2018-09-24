@@ -51,7 +51,7 @@ app.use(commentRoutes);
 function userInfo(req, res, next){
     res.locals.currentUser = req.user; //set user info to be used next
     res.locals.error = req.flash('error'); // send message to every page
-    res.locals.sucess = req.flash('sucess');
+    res.locals.success = req.flash('sucess');
     next();
 }
 
