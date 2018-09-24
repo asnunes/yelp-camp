@@ -1,6 +1,7 @@
 var express        = require("express"),
     bodyParser     = require('body-parser'),
     mongoose       = require('mongoose'),
+    flash          = require('connect-flash'),
     passport       = require('passport'),
     LocalStrategy  = require('passport-local'),
     methodOverride = require('method-override');
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs"); //to avoid .ejs at the end of the file
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
+app.use(flash());
 
 //seedDB();
 
@@ -48,6 +50,8 @@ app.use(commentRoutes);
 //aux functions
 function userInfo(req, res, next){
     res.locals.currentUser = req.user; //set user info to be used next
+    res.locals.error = req.flash('error'); // send message to every page
+    res.locals.sucess = req.flash('sucess');
     next();
 }
 

@@ -38,12 +38,14 @@ router.get('/:id/edit', middleware.checkCampgroundOwnership,function(req, res){
 
 router.put('/:id', middleware.checkCampgroundOwnership, function(req, res){
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
+        req.flash('sucess', 'Campground edited.');
         res.redirect('/campgrounds/' + req.params.id);
     });
 });
 
 router.delete('/:id',  middleware.checkCampgroundOwnership, function(req, res){
     Campground.findByIdAndDelete(req.params.id, function(err){
+        req.flash('sucess', 'Campground deleted.');
         res.redirect('/campgrounds');
     });
 });

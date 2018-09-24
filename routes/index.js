@@ -16,12 +16,14 @@ router.post("/register", function(req, res){
     var newUser = new User({username: req.body.username}); //only username here
     User.register(newUser, req.body.password, function(err, user){
         if(err){
-            console.log(err);
-            return res.render("register");
-        }
-        passport.authenticate("local")(req, res, function(){
-            res.redirect("/campgrounds");
+            req.flash('error', err.message + '.');
+            res.redirect("/register");
+        } else{
+            passport.authenticate("local")(req, res, function(){
+                req.flash('sucess', 'Welcome, ' + user.username + '.');
+                res.redirect("/campgrounds");
         });
+    }
     });
 });
 
@@ -38,6 +40,7 @@ router.post("/login", passport.authenticate("local", redirects), function(req, r
 //logout
 router.get("/logout", function(req, res){
     req.logout();
+    req.flash('sucess', 'Bye!');
     res.redirect("/campgrounds");
 });
 
